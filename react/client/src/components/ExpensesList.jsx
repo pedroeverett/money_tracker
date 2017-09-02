@@ -252,7 +252,7 @@ render() {
       <p>Date: <input type="text" name="date" value={this.state.date} onChange={this.handleChangeDate.bind(this)}/></p>
       <p>Name: <input type="text" name="name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/></p>
       <p>Price: <input type="integer" name="value" value={this.state.price} onChange={this.handleChangeValue.bind(this)}/></p>
-      <p><button onClick={() => {this.addItem()}}>Submit</button></p>
+      <p><button onClick={() => {this.addItem()}} className="submit-button">Submit</button></p>
       </form>
       </div>
 

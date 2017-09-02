@@ -10141,7 +10141,7 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
                 'button',
                 { onClick: () => {
                     this.addItem();
-                  } },
+                  }, className: 'submit-button' },
                 'Submit'
               )
             )
