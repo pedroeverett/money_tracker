@@ -9924,6 +9924,27 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
     console.log(this.state.itemId);
   }
 
+  addItemModal() {
+    var modal = document.getElementById('myModal');
+    var btn = document.getElementById("myAddBtn");
+    var span = document.getElementsByClassName("close")[0];
+    btn.onclick = function () {
+      modal.style.display = "block";
+    };
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+      modal.style.display = "none";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+  }
+
   render() {
     // console.log('http://localhost:5000/api/expenses')
     // console.log(this.state.expenses);
@@ -9944,6 +9965,7 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'td',
           null,
+          '\xA3',
           item.value
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -9980,6 +10002,32 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
         null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'tr',
+          { className: 'table-row-header' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'td',
+            null,
+            'TRANSACTIONS'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('td', null),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('td', null),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'td',
+            null,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'a',
+              { onClick: () => {
+                  this.addItemModal();
+                }, id: 'myAddBtn' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'i',
+                { className: 'fa fa-plus-square', 'aria-hidden': 'true' },
+                ' Add Transaction'
+              )
+            )
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'tr',
           null,
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'th',
@@ -9989,7 +10037,7 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'th',
             null,
-            'Type'
+            'Description'
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'th',
@@ -10031,6 +10079,24 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
                 'Submit'
               )
             )
+          )
+        )
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { id: 'myModal', className: 'modal' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'modal-content' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'span',
+            { className: 'close' },
+            '\xD7'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'p',
+            null,
+            'Some text in the Modal..'
           )
         )
       ),

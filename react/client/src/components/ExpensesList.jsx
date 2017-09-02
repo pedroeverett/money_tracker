@@ -169,6 +169,27 @@ editForm(item) {
   console.log(this.state.itemId)
 }
 
+addItemModal() {
+  var modal = document.getElementById('myModal');
+  var btn = document.getElementById("myAddBtn");
+  var span = document.getElementsByClassName("close")[0];
+  btn.onclick = function() {
+      modal.style.display = "block";
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+      modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  }
+
+}
 
 
   render() {
@@ -179,7 +200,7 @@ editForm(item) {
         <tr key={index}>
         <td>{item.date}</td>
         <td>{item.name}</td>
-        <td>{item.value}</td>
+        <td>£{item.value}</td>
         <td>
         <a  onClick={() => {this.deleteItem(item.id)}}><i className="fa fa-trash-o" aria-hidden="true"></i></a>
         <a onClick={() => {this.editForm(item)}}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
@@ -192,9 +213,15 @@ editForm(item) {
       <div className="container">
       <h1>{this.props.name}</h1>
       <table>
+      <tr className="table-row-header">
+      <td>TRANSACTIONS</td>
+      <td></td>
+      <td></td>
+      <td><a onClick={() => {this.addItemModal()}} id="myAddBtn"><i className="fa fa-plus-square" aria-hidden="true"> Add Transaction</i></a></td>
+      </tr>
       <tr>
       <th>Date</th>
-      <th>Type</th>
+      <th>Description</th>
       <th>Price</th>
       <th></th>
       </tr>
@@ -208,6 +235,14 @@ editForm(item) {
         </form>
         </tr>
       </table>
+
+      <div id="myModal" className="modal">
+      <div className="modal-content">
+          <span className="close">&times;</span>
+          <p>Some text in the Modal..</p>
+        </div>
+        
+      </div>
       <button onClick={() => {this.hideFunction('addForm')}}>Add Item</button>
         <form id="addForm" >
       Date: <input type="text" name="date" value={this.state.date} onChange={this.handleChangeValue.bind(this)}/>
