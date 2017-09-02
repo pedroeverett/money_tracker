@@ -1,5 +1,5 @@
 body {
-  background: white;
+  background: #eff7f9;
   margin: 0;
   padding: 0;
 }
@@ -11,15 +11,22 @@ body {
 
 table {
   width: 80%;
+  border-collapse: collapse;
 
 }
 
 table th {
-  background: green;
+  background: #77d5d4;
+  color: white;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
 }
 
 table tr:nth-child(odd) td{
-  background: grey;
+  background: #f8f8f8;
 }
 table tr:nth-child(even) td{
   background: white;
@@ -36,13 +43,12 @@ table tr:nth-child(even) td{
     display: none;
   }
 
-  .container {
+ /* .container {
     width: 100%;
-    /*display: flex;*/
+    display: flex;
     background: white;
     overflow: auto;
-
-  }
+  }*/
   .article-list {
     width: 100%;
     display: flex;
