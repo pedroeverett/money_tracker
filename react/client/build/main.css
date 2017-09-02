@@ -31,6 +31,12 @@ table tr:nth-child(odd) td{
 table tr:nth-child(even) td{
   background: white;
 }
+
+  .delete-item-icon {
+    content:”\f014″; 
+    color:#f00
+  }
+
   #newsImg {
     width: 100%;
   }

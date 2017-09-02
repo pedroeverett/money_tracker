@@ -9950,18 +9950,18 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
           'td',
           null,
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'button',
+            'a',
             { onClick: () => {
                 this.deleteItem(item.id);
               } },
-            'Delete'
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-trash-o', 'aria-hidden': 'true' })
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'button',
+            'a',
             { onClick: () => {
                 this.editForm(item);
               } },
-            'Edit'
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-pencil-square-o', 'aria-hidden': 'true' })
           )
         )
       );

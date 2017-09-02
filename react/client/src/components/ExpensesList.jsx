@@ -181,8 +181,8 @@ editForm(item) {
         <td>{item.name}</td>
         <td>{item.value}</td>
         <td>
-        <button onClick={() => {this.deleteItem(item.id)}}>Delete</button>
-        <button onClick={() => {this.editForm(item)}}>Edit</button>
+        <a  onClick={() => {this.deleteItem(item.id)}}><i className="fa fa-trash-o" aria-hidden="true"></i></a>
+        <a onClick={() => {this.editForm(item)}}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
         </td> 
         </tr>
       )
