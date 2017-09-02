@@ -27,8 +27,8 @@ class TopMenu extends React.Component {
   render() {
     return(
       <div id="TopMenu">
-      <a href="#news1">Tech</a>
-      <a href="#news2">Entertainment</a>
+      <a href="#news1">Expenses</a>
+      <a href="#news2">Graphs</a>
       <a onClick={() => {this.hideFunction('TopMenuOptions')}}>Setup</a>
       <TopMenuOptions />
       </div>

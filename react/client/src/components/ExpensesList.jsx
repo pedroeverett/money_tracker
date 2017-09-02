@@ -71,29 +71,54 @@ class ExpensesList extends React.Component {
   }
 
   editItem() {
-    console.log("edit")
-    var url = 'http://localhost:5000/api/expenses/' + this.state.itemId
-    var request = new XMLHttpRequest()
-    request.open('PATCH', url)
+    console.log("hekkkk")
+      var url = 'http://localhost:5000/api/expenses/55'
+      var request = new XMLHttpRequest()
+      request.open('PUT', url, false)
 
-    request.setRequestHeader('Contente-Type', "application/json")
+      request.setRequestHeader('Content-Type', "application/json")
 
-    request.onload = () => {
-      if(request.status === 200) {
-        var data = JSON.parse(request.responseText)
-        this.state.expenses.push(data)
-        this.setState({
-          expenses: this.state.expenses
-        })
+      request.onload = () => {
+         if(request.status === 200){
+          // console.log("request: ", request.responseText)
+          var data = JSON.parse(request.responseText)
+          console.log(data)
+          this.state.expenses.push(data)
+          this.setState({
+            expenses: this.state.expenses
+          })
+         } 
       }
-    }
-    const body = {
-      name: this.state.name,
-      value: this.state.price
+      const body = {
+          name: "eeeeerrr",
+          value:this.state.price
+      } 
+
+      request.send(JSON.stringify(body))
     }
 
-    request.send(JSON.stringify(body))
-  }
+  //   var url = 'http://localhost:5000/api/expenses/' + this.state.itemId
+  //   var request = new XMLHttpRequest()
+  //   request.open('PUT', url)
+
+  //   request.setRequestHeader('Contente-Type', "application/json")
+
+  //   request.onload = () => {
+  //     if(request.status === 200) {
+  //       var data = JSON.parse(request.responseText)
+  //       this.state.expenses.push(data)
+  //       this.setState({
+  //         expenses: this.state.expenses
+  //       })
+  //     }
+  //   }
+  //   const body = {
+  //     name: this.state.name,
+  //     value: this.state.price
+  //   }
+
+  //   request.send(JSON.stringify(body))
+  // }
 
   ExpensList() {
   var url = 'http://localhost:5000/api/expenses'
@@ -166,7 +191,7 @@ editForm(item) {
       </tr>
      { eachNew }
         <tr>
-        <form id="editForm" >
+        <form id="editForm" onSubmit={this.editItem}>
         <td><input type="text" name="name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/></td>
         <td><input type="integer" name="value" value={this.state.price} onChange={this.handleChangeValue.bind(this)}/></td>
         <td><button onClick={() => {this.editItem()}}>Submit</button></td>

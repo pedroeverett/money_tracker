@@ -9826,16 +9826,18 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
   }
 
   editItem() {
-    console.log("edit");
-    var url = 'http://localhost:5000/api/expenses/' + this.state.itemId;
+    console.log("hekkkk");
+    var url = 'http://localhost:5000/api/expenses/55';
     var request = new XMLHttpRequest();
-    request.open('PATCH', url);
+    request.open('PUT', url, false);
 
-    request.setRequestHeader('Contente-Type', "application/json");
+    request.setRequestHeader('Content-Type', "application/json");
 
     request.onload = () => {
       if (request.status === 200) {
+        // console.log("request: ", request.responseText)
         var data = JSON.parse(request.responseText);
+        console.log(data);
         this.state.expenses.push(data);
         this.setState({
           expenses: this.state.expenses
@@ -9843,12 +9845,35 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
       }
     };
     const body = {
-      name: this.state.name,
+      name: "eeeeerrr",
       value: this.state.price
     };
 
     request.send(JSON.stringify(body));
   }
+
+  //   var url = 'http://localhost:5000/api/expenses/' + this.state.itemId
+  //   var request = new XMLHttpRequest()
+  //   request.open('PUT', url)
+
+  //   request.setRequestHeader('Contente-Type', "application/json")
+
+  //   request.onload = () => {
+  //     if(request.status === 200) {
+  //       var data = JSON.parse(request.responseText)
+  //       this.state.expenses.push(data)
+  //       this.setState({
+  //         expenses: this.state.expenses
+  //       })
+  //     }
+  //   }
+  //   const body = {
+  //     name: this.state.name,
+  //     value: this.state.price
+  //   }
+
+  //   request.send(JSON.stringify(body))
+  // }
 
   ExpensList() {
     var url = 'http://localhost:5000/api/expenses';
@@ -9968,7 +9993,7 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
           null,
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'form',
-            { id: 'editForm' },
+            { id: 'editForm', onSubmit: this.editItem },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'td',
               null,
@@ -10134,12 +10159,12 @@ class TopMenu extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'a',
                 { href: '#news1' },
-                'Tech'
+                'Expenses'
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'a',
                 { href: '#news2' },
-                'Entertainment'
+                'Graphs'
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'a',

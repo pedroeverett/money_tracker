@@ -9,6 +9,21 @@ body {
   display:block;
 }*/
 
+table {
+  width: 80%;
+
+}
+
+table th {
+  background: green;
+}
+
+table tr:nth-child(odd) td{
+  background: grey;
+}
+table tr:nth-child(even) td{
+  background: white;
+}
   #newsImg {
     width: 100%;
   }
