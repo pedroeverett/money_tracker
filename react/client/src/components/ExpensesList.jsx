@@ -152,6 +152,10 @@ hideFunction(section) {
     }
 }
 
+handleChangeDate(event) {
+  this.setState({date: event.target.value})
+}
+
 handleChangeName(event) {
   this.setState({name: event.target.value})
 }
@@ -173,17 +177,17 @@ addItemModal() {
   var modal = document.getElementById('myModal');
   var btn = document.getElementById("myAddBtn");
   var span = document.getElementsByClassName("close")[0];
-  btn.onclick = function() {
+  btn.onclick = () => {
       modal.style.display = "block";
   }
 
   // When the user clicks on <span> (x), close the modal
-  span.onclick = function() {
+  span.onclick = () => {
       modal.style.display = "none";
   }
 
   // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
+  window.onclick = (event) => {
       if (event.target == modal) {
           modal.style.display = "none";
       }
@@ -239,17 +243,16 @@ addItemModal() {
       <div id="myModal" className="modal">
       <div className="modal-content">
           <span className="close">&times;</span>
-          <p>Some text in the Modal..</p>
-        </div>
-        
-      </div>
-      <button onClick={() => {this.hideFunction('addForm')}}>Add Item</button>
+          <p>Add New Transaction</p>
         <form id="addForm" >
-      Date: <input type="text" name="date" value={this.state.date} onChange={this.handleChangeValue.bind(this)}/>
+      Date: <input type="text" name="date" value={this.state.date} onChange={this.handleChangeDate.bind(this)}/>
       Name: <input type="text" name="name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/>
       Price: <input type="integer" name="value" value={this.state.price} onChange={this.handleChangeValue.bind(this)}/>
       <button onClick={() => {this.addItem()}}>Submit</button>
       </form>
+        </div>
+        
+      </div>
 
       </div>
       )

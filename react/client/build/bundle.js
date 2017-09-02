@@ -9907,6 +9907,10 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
     }
   }
 
+  handleChangeDate(event) {
+    this.setState({ date: event.target.value });
+  }
+
   handleChangeName(event) {
     this.setState({ name: event.target.value });
   }
@@ -9928,17 +9932,17 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
     var modal = document.getElementById('myModal');
     var btn = document.getElementById("myAddBtn");
     var span = document.getElementsByClassName("close")[0];
-    btn.onclick = function () {
+    btn.onclick = () => {
       modal.style.display = "block";
     };
 
     // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
+    span.onclick = () => {
       modal.style.display = "none";
     };
 
     // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
+    window.onclick = event => {
       if (event.target == modal) {
         modal.style.display = "none";
       }
@@ -10096,32 +10100,25 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'p',
             null,
-            'Some text in the Modal..'
+            'Add New Transaction'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'form',
+            { id: 'addForm' },
+            'Date: ',
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'date', value: this.state.date, onChange: this.handleChangeDate.bind(this) }),
+            'Name: ',
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'name', value: this.state.name, onChange: this.handleChangeName.bind(this) }),
+            'Price: ',
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'integer', name: 'value', value: this.state.price, onChange: this.handleChangeValue.bind(this) }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'button',
+              { onClick: () => {
+                  this.addItem();
+                } },
+              'Submit'
+            )
           )
-        )
-      ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'button',
-        { onClick: () => {
-            this.hideFunction('addForm');
-          } },
-        'Add Item'
-      ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'form',
-        { id: 'addForm' },
-        'Date: ',
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'date', value: this.state.date, onChange: this.handleChangeValue.bind(this) }),
-        'Name: ',
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'name', value: this.state.name, onChange: this.handleChangeName.bind(this) }),
-        'Price: ',
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'integer', name: 'value', value: this.state.price, onChange: this.handleChangeValue.bind(this) }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'button',
-          { onClick: () => {
-              this.addItem();
-            } },
-          'Submit'
         )
       )
     );
