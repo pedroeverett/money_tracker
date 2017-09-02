@@ -9765,6 +9765,7 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
       expenses: [],
       name: [],
       price: [],
+      date: [],
       itemId: []
     };
   }
@@ -9819,7 +9820,8 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
     };
     const body = {
       name: this.state.name,
-      value: this.state.price
+      value: this.state.price,
+      date: this.state.date
     };
 
     request.send(JSON.stringify(body));
@@ -9846,7 +9848,8 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
     };
     const body = {
       name: "eeeeerrr",
-      value: this.state.price
+      value: this.state.price,
+      date: "2012-12-20"
     };
 
     request.send(JSON.stringify(body));
@@ -9916,6 +9919,7 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
     this.hideFunction('editForm');
     this.setState({ name: item.name });
     this.setState({ price: item.value });
+    this.setState({ date: item.date });
     this.setState({ itemId: item.id });
     console.log(this.state.itemId);
   }
@@ -9936,6 +9940,11 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
           'td',
           null,
           item.value
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'td',
+          null,
+          item.date
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'td',
@@ -9985,6 +9994,11 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
             'th',
             null,
             'Price'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'th',
+            null,
+            'Date'
           )
         ),
         eachNew,
@@ -10003,6 +10017,11 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
               'td',
               null,
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'integer', name: 'value', value: this.state.price, onChange: this.handleChangeValue.bind(this) })
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'td',
+              null,
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'tex', name: 'date', value: this.state.date, onChange: this.handleChangeValue.bind(this) })
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'td',
@@ -10032,6 +10051,8 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'name', value: this.state.name, onChange: this.handleChangeName.bind(this) }),
         'Price: ',
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'integer', name: 'value', value: this.state.price, onChange: this.handleChangeValue.bind(this) }),
+        'Date: ',
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'date', value: this.state.date, onChange: this.handleChangeValue.bind(this) }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'button',
           { onClick: () => {
