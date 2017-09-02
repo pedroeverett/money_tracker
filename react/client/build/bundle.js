@@ -9763,9 +9763,9 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
     super(props);
     this.state = {
       expenses: [],
+      date: [],
       name: [],
       price: [],
-      date: [],
       itemId: []
     };
   }
@@ -9934,6 +9934,11 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'td',
           null,
+          item.date
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'td',
+          null,
           item.name
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -9944,22 +9949,13 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'td',
           null,
-          item.date
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'td',
-          null,
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'button',
             { onClick: () => {
                 this.deleteItem(item.id);
               } },
             'Delete'
-          )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'td',
-          null,
+          ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'button',
             { onClick: () => {
@@ -9988,6 +9984,11 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'th',
             null,
+            'Date'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'th',
+            null,
             'Type'
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -9995,11 +9996,7 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
             null,
             'Price'
           ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'th',
-            null,
-            'Date'
-          )
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('th', null)
         ),
         eachNew,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -10011,17 +10008,17 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'td',
               null,
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'tex', name: 'date', value: this.state.date, onChange: this.handleChangeValue.bind(this) })
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'td',
+              null,
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'name', value: this.state.name, onChange: this.handleChangeName.bind(this) })
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'td',
               null,
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'integer', name: 'value', value: this.state.price, onChange: this.handleChangeValue.bind(this) })
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'td',
-              null,
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'tex', name: 'date', value: this.state.date, onChange: this.handleChangeValue.bind(this) })
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'td',
@@ -10047,12 +10044,12 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'form',
         { id: 'addForm' },
+        'Date: ',
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'date', value: this.state.date, onChange: this.handleChangeValue.bind(this) }),
         'Name: ',
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'name', value: this.state.name, onChange: this.handleChangeName.bind(this) }),
         'Price: ',
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'integer', name: 'value', value: this.state.price, onChange: this.handleChangeValue.bind(this) }),
-        'Date: ',
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'date', value: this.state.date, onChange: this.handleChangeValue.bind(this) }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'button',
           { onClick: () => {

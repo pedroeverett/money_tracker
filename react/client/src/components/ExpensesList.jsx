@@ -6,9 +6,9 @@ class ExpensesList extends React.Component {
      super(props);
      this.state = {
       expenses: [],
+      date: [],
       name: [],
       price: [],
-      date: [],
       itemId: []
     };
   }
@@ -177,11 +177,13 @@ editForm(item) {
     const eachNew = this.state.expenses.map((item, index) => {
      return (       
         <tr key={index}>
+        <td>{item.date}</td>
         <td>{item.name}</td>
         <td>{item.value}</td>
-        <td>{item.date}</td>
-        <td><button onClick={() => {this.deleteItem(item.id)}}>Delete</button></td>
-        <td><button onClick={() => {this.editForm(item)}}>Edit</button></td> 
+        <td>
+        <button onClick={() => {this.deleteItem(item.id)}}>Delete</button>
+        <button onClick={() => {this.editForm(item)}}>Edit</button>
+        </td> 
         </tr>
       )
    });
@@ -191,25 +193,26 @@ editForm(item) {
       <h1>{this.props.name}</h1>
       <table>
       <tr>
+      <th>Date</th>
       <th>Type</th>
       <th>Price</th>
-      <th>Date</th>
+      <th></th>
       </tr>
      { eachNew }
         <tr>
         <form id="editForm" onSubmit={this.editItem}>
+        <td><input type="tex" name="date" value={this.state.date} onChange={this.handleChangeValue.bind(this)}/></td>
         <td><input type="text" name="name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/></td>
         <td><input type="integer" name="value" value={this.state.price} onChange={this.handleChangeValue.bind(this)}/></td>
-        <td><input type="tex" name="date" value={this.state.date} onChange={this.handleChangeValue.bind(this)}/></td>
         <td><button onClick={() => {this.editItem()}}>Submit</button></td>
         </form>
         </tr>
       </table>
       <button onClick={() => {this.hideFunction('addForm')}}>Add Item</button>
         <form id="addForm" >
+      Date: <input type="text" name="date" value={this.state.date} onChange={this.handleChangeValue.bind(this)}/>
       Name: <input type="text" name="name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/>
       Price: <input type="integer" name="value" value={this.state.price} onChange={this.handleChangeValue.bind(this)}/>
-      Date: <input type="text" name="date" value={this.state.date} onChange={this.handleChangeValue.bind(this)}/>
       <button onClick={() => {this.addItem()}}>Submit</button>
       </form>
 
