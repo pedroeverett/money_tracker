@@ -15,7 +15,7 @@ window.onload = function(){
 
   ReactDOM.render(
     <ExpensesList name="Expenses List"/>,
-    document.getElementById('expenses-list')
+    document.getElementById('expenses-list-html-container-div')
   );
 }
 

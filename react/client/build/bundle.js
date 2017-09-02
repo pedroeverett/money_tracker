@@ -9995,12 +9995,7 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
 
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
-      { className: 'container' },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'h1',
-        null,
-        this.props.name
-      ),
+      { className: 'expense-list-inner-div' },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'table',
         null,
@@ -10060,7 +10055,7 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'td',
               null,
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'tex', name: 'date', value: this.state.date, onChange: this.handleChangeValue.bind(this) })
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'date', value: this.state.date, onChange: this.handleChangeDate.bind(this) })
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'td',
@@ -10090,33 +10085,65 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
         'div',
         { id: 'myModal', className: 'modal' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'table',
+          null,
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'tr',
+            null,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'th',
+              null,
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'h3',
+                null,
+                'Add New Transaction'
+              )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'th',
+              null,
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'span',
+                { className: 'close' },
+                '\xD7'
+              )
+            )
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
           { className: 'modal-content' },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'span',
-            { className: 'close' },
-            '\xD7'
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'p',
-            null,
-            'Add New Transaction'
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'form',
             { id: 'addForm' },
-            'Date: ',
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'date', value: this.state.date, onChange: this.handleChangeDate.bind(this) }),
-            'Name: ',
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'name', value: this.state.name, onChange: this.handleChangeName.bind(this) }),
-            'Price: ',
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'integer', name: 'value', value: this.state.price, onChange: this.handleChangeValue.bind(this) }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'button',
-              { onClick: () => {
-                  this.addItem();
-                } },
-              'Submit'
+              'p',
+              null,
+              'Date: ',
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'date', value: this.state.date, onChange: this.handleChangeDate.bind(this) })
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'p',
+              null,
+              'Name: ',
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'name', value: this.state.name, onChange: this.handleChangeName.bind(this) })
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'p',
+              null,
+              'Price: ',
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'integer', name: 'value', value: this.state.price, onChange: this.handleChangeValue.bind(this) })
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'p',
+              null,
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'button',
+                { onClick: () => {
+                    this.addItem();
+                  } },
+                'Submit'
+              )
             )
           )
         )
@@ -10206,57 +10233,29 @@ class TechCrunchList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compo
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TopMenuOptions__ = __webpack_require__(87);
-
 
 
 class TopMenu extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    hideFunction(section) {
-        let x = document.getElementById(section);
-        if (x.style.display === 'none') {
-            x.style.display = 'block';
-        } else {
-            x.style.display = 'none';
-        }
-    }
-
-    // render() {
-    //   return (
-    //     <div>
-    //     <button onClick={() => {this.hideFunction('news1')}}>Hide Tech</button>
-    //     <button onClick={() => {this.hideFunction('news2')}}>Hide Entert</button>
-    //     </div>
-    //     );
-    // }
-
-    render() {
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { id: 'TopMenu' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'a',
-                { href: '#news1' },
-                'Expenses'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'a',
-                { href: '#news2' },
-                'Graphs'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'a',
-                { onClick: () => {
-                        this.hideFunction('TopMenuOptions');
-                    } },
-                'Setup'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__TopMenuOptions__["a" /* default */], null)
-        );
-    }
+  render() {
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "div",
+      { id: "TopMenu" },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "a",
+        { href: "" },
+        "Expenses"
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "a",
+        { href: "" },
+        "Graphs"
+      )
+    );
+  }
 
 }
 /* harmony default export */ __webpack_exports__["a"] = (TopMenu);
@@ -10295,58 +10294,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 window.onload = function () {
   __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_TopMenu__["a" /* default */], null), document.getElementById('header-menu'));
 
-  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_ExpensesList__["a" /* default */], { name: 'Expenses List' }), document.getElementById('expenses-list'));
+  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_ExpensesList__["a" /* default */], { name: 'Expenses List' }), document.getElementById('expenses-list-html-container-div'));
 };
 
 /***/ }),
-/* 87 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-
-
-class TopMenuOptions extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    hideFunction(section) {
-        let x = document.getElementById(section);
-        if (x.style.display === 'none') {
-            x.style.display = 'block';
-        } else {
-            x.style.display = 'none';
-        }
-    }
-
-    render() {
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { id: 'TopMenuOptions' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'a',
-                { onClick: () => {
-                        this.hideFunction('news1');
-                    } },
-                'Hide Tech'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'a',
-                { onClick: () => {
-                        this.hideFunction('news2');
-                    } },
-                'Hide Entert'
-            )
-        );
-    }
-
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (TopMenuOptions);
-
-/***/ }),
+/* 87 */,
 /* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 

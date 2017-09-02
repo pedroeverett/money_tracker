@@ -2,22 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 class ExpensesList extends React.Component {
-   constructor(props) {
-     super(props);
-     this.state = {
-      expenses: [],
-      date: [],
-      name: [],
-      price: [],
-      itemId: []
-    };
-  }
+ constructor(props) {
+   super(props);
+   this.state = {
+    expenses: [],
+    date: [],
+    name: [],
+    price: [],
+    itemId: []
+  };
+}
 
-  componentDidMount() {
-   this.ExpensList();
-  }
+componentDidMount() {
+ this.ExpensList();
+}
 
-  deleteItem(id) {
+deleteItem(id) {
     // console.log(id)
     var url = 'http://localhost:5000/api/expenses/' + id
     var request = new XMLHttpRequest()
@@ -36,24 +36,24 @@ class ExpensesList extends React.Component {
           })
           return
         }
-       }
-      } 
-    }
-    request.send()
+      }
+    } 
   }
+  request.send()
+}
 
 
 
 //additem button = form = on submit calls additem()
-  addItem() {
-    var url = 'http://localhost:5000/api/expenses'
-    var request = new XMLHttpRequest()
-    request.open('POST', url)
+addItem() {
+  var url = 'http://localhost:5000/api/expenses'
+  var request = new XMLHttpRequest()
+  request.open('POST', url)
 
-    request.setRequestHeader('Content-Type', "application/json")
+  request.setRequestHeader('Content-Type', "application/json")
 
-    request.onload = () => {
-       if(request.status === 200){
+  request.onload = () => {
+   if(request.status === 200){
         // console.log("request: ", request.responseText)
         var data = JSON.parse(request.responseText)
         console.log(data)
@@ -61,12 +61,12 @@ class ExpensesList extends React.Component {
         this.setState({
           expenses: this.state.expenses
         })
-       } 
+      } 
     }
     const body = {
-        name: this.state.name,
-        value:this.state.price,
-        date: this.state.date
+      name: this.state.name,
+      value:this.state.price,
+      date: this.state.date
     } 
 
     request.send(JSON.stringify(body))
@@ -74,14 +74,14 @@ class ExpensesList extends React.Component {
 
   editItem() {
     console.log("hekkkk")
-      var url = 'http://localhost:5000/api/expenses/55'
-      var request = new XMLHttpRequest()
-      request.open('PUT', url, false)
+    var url = 'http://localhost:5000/api/expenses/55'
+    var request = new XMLHttpRequest()
+    request.open('PUT', url, false)
 
-      request.setRequestHeader('Content-Type', "application/json")
+    request.setRequestHeader('Content-Type', "application/json")
 
-      request.onload = () => {
-         if(request.status === 200){
+    request.onload = () => {
+     if(request.status === 200){
           // console.log("request: ", request.responseText)
           var data = JSON.parse(request.responseText)
           console.log(data)
@@ -89,12 +89,12 @@ class ExpensesList extends React.Component {
           this.setState({
             expenses: this.state.expenses
           })
-         } 
+        } 
       }
       const body = {
-          name: "eeeeerrr",
-          value:this.state.price,
-          date: "2012-12-20"
+        name: "eeeeerrr",
+        value:this.state.price,
+        date: "2012-12-20"
       } 
 
       request.send(JSON.stringify(body))
@@ -124,32 +124,32 @@ class ExpensesList extends React.Component {
   // }
 
   ExpensList() {
-  var url = 'http://localhost:5000/api/expenses'
+    var url = 'http://localhost:5000/api/expenses'
     var request = new XMLHttpRequest()
     request.open('GET', url)
 
     request.setRequestHeader('Content-Type', "application/json")
 
     request.onload = () => {
-       if(request.status === 200){
-        console.log("request: ", request.responseText)
-        var data = JSON.parse(request.responseText)
-        this.setState( { expenses: data } )
-       } 
-    }
-    request.send(null)
+     if(request.status === 200){
+      console.log("request: ", request.responseText)
+      var data = JSON.parse(request.responseText)
+      this.setState( { expenses: data } )
+    } 
   }
+  request.send(null)
+}
 //editForm() //just creates a form and gets the values of the item that is passed when created.
 //this form will have a submit button that when clicked class the editItem()
 //the editItem() body will get the elements from the form, and will be almost like the addItem() onerror
 
 hideFunction(section) {
-    let x = document.getElementById(section);
-    if (x.style.display == 'none') {
-        x.style.display = 'block';
-    } else {
-        x.style.display = 'none';
-    }
+  let x = document.getElementById(section);
+  if (x.style.display == 'none') {
+    x.style.display = 'block';
+  } else {
+    x.style.display = 'none';
+  }
 }
 
 handleChangeDate(event) {
@@ -178,44 +178,44 @@ addItemModal() {
   var btn = document.getElementById("myAddBtn");
   var span = document.getElementsByClassName("close")[0];
   btn.onclick = () => {
-      modal.style.display = "block";
+    modal.style.display = "block";
   }
 
   // When the user clicks on <span> (x), close the modal
   span.onclick = () => {
-      modal.style.display = "none";
+    modal.style.display = "none";
   }
 
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = (event) => {
-      if (event.target == modal) {
-          modal.style.display = "none";
-      }
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
   }
 
 }
 
 
-  render() {
+render() {
     // console.log('http://localhost:5000/api/expenses')
     // console.log(this.state.expenses);
     const eachNew = this.state.expenses.map((item, index) => {
      return (       
-        <tr key={index}>
-        <td>{item.date}</td>
-        <td>{item.name}</td>
-        <td>£{item.value}</td>
-        <td>
-        <a  onClick={() => {this.deleteItem(item.id)}}><i className="fa fa-trash-o" aria-hidden="true"></i></a>
-        <a onClick={() => {this.editForm(item)}}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-        </td> 
-        </tr>
+      <tr key={index}>
+      <td>{item.date}</td>
+      <td>{item.name}</td>
+      <td>£{item.value}</td>
+      <td>
+      <a  onClick={() => {this.deleteItem(item.id)}}><i className="fa fa-trash-o" aria-hidden="true"></i></a>
+      <a onClick={() => {this.editForm(item)}}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+      </td> 
+      </tr>
       )
    });
 
     return (
-      <div className="container">
-      <h1>{this.props.name}</h1>
+      <div className="expense-list-inner-div">
+      
       <table>
       <tr className="table-row-header">
       <td>TRANSACTIONS</td>
@@ -229,29 +229,33 @@ addItemModal() {
       <th>Price</th>
       <th></th>
       </tr>
-     { eachNew }
-        <tr>
-        <form id="editForm" onSubmit={this.editItem}>
-        <td><input type="tex" name="date" value={this.state.date} onChange={this.handleChangeValue.bind(this)}/></td>
-        <td><input type="text" name="name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/></td>
-        <td><input type="integer" name="value" value={this.state.price} onChange={this.handleChangeValue.bind(this)}/></td>
-        <td><button onClick={() => {this.editItem()}}>Submit</button></td>
-        </form>
-        </tr>
+      { eachNew }
+      <tr>
+      <form id="editForm" onSubmit={this.editItem}>
+      <td><input type="text" name="date" value={this.state.date} onChange={this.handleChangeDate.bind(this)}/></td>
+      <td><input type="text" name="name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/></td>
+      <td><input type="integer" name="value" value={this.state.price} onChange={this.handleChangeValue.bind(this)}/></td>
+      <td><button onClick={() => {this.editItem()}}>Submit</button></td>
+      </form>
+      </tr>
       </table>
 
       <div id="myModal" className="modal">
+      <table>
+      <tr>
+      <th><h3>Add New Transaction</h3></th>
+      <th><span className="close">&times;</span></th>
+      </tr>
+      </table>
       <div className="modal-content">
-          <span className="close">&times;</span>
-          <p>Add New Transaction</p>
-        <form id="addForm" >
-      Date: <input type="text" name="date" value={this.state.date} onChange={this.handleChangeDate.bind(this)}/>
-      Name: <input type="text" name="name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/>
-      Price: <input type="integer" name="value" value={this.state.price} onChange={this.handleChangeValue.bind(this)}/>
-      <button onClick={() => {this.addItem()}}>Submit</button>
+      <form id="addForm" >
+      <p>Date: <input type="text" name="date" value={this.state.date} onChange={this.handleChangeDate.bind(this)}/></p>
+      <p>Name: <input type="text" name="name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/></p>
+      <p>Price: <input type="integer" name="value" value={this.state.price} onChange={this.handleChangeValue.bind(this)}/></p>
+      <p><button onClick={() => {this.addItem()}}>Submit</button></p>
       </form>
-        </div>
-        
+      </div>
+
       </div>
 
       </div>
