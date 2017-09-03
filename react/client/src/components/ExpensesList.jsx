@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Repors from './Reports'
 
 class ExpensesList extends React.Component {
  constructor(props) {
@@ -180,25 +181,20 @@ addItemModal() {
   btn.onclick = () => {
     modal.style.display = "block";
   }
-
   // When the user clicks on <span> (x), close the modal
   span.onclick = () => {
     modal.style.display = "none";
   }
-
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = (event) => {
     if (event.target == modal) {
       modal.style.display = "none";
     }
   }
-
 }
 
 
 render() {
-    // console.log('http://localhost:5000/api/expenses')
-    // console.log(this.state.expenses);
     const eachNew = this.state.expenses.map((item, index) => {
      return (       
       <tr key={index}>
@@ -241,21 +237,31 @@ render() {
       </table>
 
       <div id="myModal" className="modal">
-      <table>
+      <div className="modal-content">
+      <div class="modal-header">
+      <table id="form-table">
       <tr>
+      <th></th>
       <th><h3>Add New Transaction</h3></th>
       <th><span className="close">&times;</span></th>
+      <th></th>
       </tr>
       </table>
-      <div className="modal-content">
+      </div>
+      <div class="modal-body">
+      <table id="form-table">
       <form id="addForm" >
-      <p>Date: <input type="text" name="date" value={this.state.date} onChange={this.handleChangeDate.bind(this)}/></p>
-      <p>Name: <input type="text" name="name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/></p>
-      <p>Price: <input type="integer" name="value" value={this.state.price} onChange={this.handleChangeValue.bind(this)}/></p>
+      
+      <tr><p>Date: <input type="text" name="date" value={this.state.date} onChange={this.handleChangeDate.bind(this)}/></p></tr>
+      <tr><p>Name: <input type="text" name="name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/></p></tr>
+      <tr><p>Price: <input type="integer" name="value" value={this.state.price} onChange={this.handleChangeValue.bind(this)}/></p></tr>
       <p><button onClick={() => {this.addItem()}} className="submit-button">Submit</button></p>
       </form>
+      </table>
       </div>
 
+
+      </div>
       </div>
 
       </div>
