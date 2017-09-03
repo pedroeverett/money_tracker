@@ -74,10 +74,10 @@ addItem() {
   }
 
   editItem() {
-    console.log("hekkkk")
-    var url = 'http://localhost:5000/api/expenses/55'
+    console.log("editItem() called")
+    var url = 'http://localhost:5000/api/expenses/' + this.state.itemId
     var request = new XMLHttpRequest()
-    request.open('PUT', url, false)
+    request.open('PATCH', url)
 
     request.setRequestHeader('Content-Type', "application/json")
 
@@ -93,33 +93,34 @@ addItem() {
         } 
       }
       const body = {
-        name: "eeeeerrr",
+        name: this.state.name,
         value:this.state.price,
-        date: "2012-12-20"
+        date: this.state.date
       } 
 
       request.send(JSON.stringify(body))
     }
 
-  //   var url = 'http://localhost:5000/api/expenses/' + this.state.itemId
-  //   var request = new XMLHttpRequest()
-  //   request.open('PUT', url)
+    // var url = 'http://localhost:5000/api/expenses/' + this.state.itemId
+    // var request = new XMLHttpRequest()
+    // request.open('PATCH', url)
 
-  //   request.setRequestHeader('Contente-Type', "application/json")
+    // request.setRequestHeader('Contente-Type', "application/json")
 
-  //   request.onload = () => {
-  //     if(request.status === 200) {
-  //       var data = JSON.parse(request.responseText)
-  //       this.state.expenses.push(data)
-  //       this.setState({
-  //         expenses: this.state.expenses
-  //       })
-  //     }
-  //   }
-  //   const body = {
-  //     name: this.state.name,
-  //     value: this.state.price
-  //   }
+    // request.onload = () => {
+    //   if(request.status === 200) {
+    //     var data = JSON.parse(request.responseText)
+    //     this.state.expenses.push(data)
+    //     this.setState({
+    //       expenses: this.state.expenses
+    //     })
+    //   }
+    // }
+    // const body = {
+    //   name: this.state.name,
+    //   value: this.state.price,
+    //   date: this.state.date
+    // }
 
   //   request.send(JSON.stringify(body))
   // }
@@ -165,6 +166,10 @@ handleChangeValue(event) {
   this.setState({price: event.target.value})
 }
 
+handleSubmit(event) {
+    event.preventDefault();
+  }
+
 editForm(item) {
   this.hideFunction('editForm')
   this.setState({name: item.name})
@@ -202,7 +207,7 @@ render() {
       <td>{item.name}</td>
       <td>£{item.value}</td>
       <td>
-      <a  onClick={() => {this.deleteItem(item.id)}}><i className="fa fa-trash-o" aria-hidden="true"></i></a>
+      <a onClick={() => {this.deleteItem(item.id)}}><i className="fa fa-trash-o" aria-hidden="true"></i></a>
       <a onClick={() => {this.editForm(item)}}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
       </td> 
       </tr>
@@ -238,7 +243,7 @@ render() {
 
       <div id="myModal" className="modal">
       <div className="modal-content">
-      <div class="modal-header">
+      <div className="modal-header">
       <table id="form-table">
       <tr>
       <th></th>
@@ -248,12 +253,11 @@ render() {
       </tr>
       </table>
       </div>
-      <div class="modal-body">
+      <div className="modal-body">
       <table id="form-table">
       <form id="addForm" >
-      
       <tr><p>Date: <input type="text" name="date" value={this.state.date} onChange={this.handleChangeDate.bind(this)}/></p></tr>
-      <tr><p>Name: <input type="text" name="name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/></p></tr>
+      <tr><p>Description: <input type="text" name="name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/></p></tr>
       <tr><p>Price: <input type="integer" name="value" value={this.state.price} onChange={this.handleChangeValue.bind(this)}/></p></tr>
       <p><button onClick={() => {this.addItem()}} className="submit-button">Submit</button></p>
       </form>

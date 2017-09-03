@@ -9830,10 +9830,10 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
   }
 
   editItem() {
-    console.log("hekkkk");
-    var url = 'http://localhost:5000/api/expenses/55';
+    console.log("editItem() called");
+    var url = 'http://localhost:5000/api/expenses/' + this.state.itemId;
     var request = new XMLHttpRequest();
-    request.open('PUT', url, false);
+    request.open('PATCH', url);
 
     request.setRequestHeader('Content-Type', "application/json");
 
@@ -9849,33 +9849,34 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
       }
     };
     const body = {
-      name: "eeeeerrr",
+      name: this.state.name,
       value: this.state.price,
-      date: "2012-12-20"
+      date: this.state.date
     };
 
     request.send(JSON.stringify(body));
   }
 
-  //   var url = 'http://localhost:5000/api/expenses/' + this.state.itemId
-  //   var request = new XMLHttpRequest()
-  //   request.open('PUT', url)
+  // var url = 'http://localhost:5000/api/expenses/' + this.state.itemId
+  // var request = new XMLHttpRequest()
+  // request.open('PATCH', url)
 
-  //   request.setRequestHeader('Contente-Type', "application/json")
+  // request.setRequestHeader('Contente-Type', "application/json")
 
-  //   request.onload = () => {
-  //     if(request.status === 200) {
-  //       var data = JSON.parse(request.responseText)
-  //       this.state.expenses.push(data)
-  //       this.setState({
-  //         expenses: this.state.expenses
-  //       })
-  //     }
+  // request.onload = () => {
+  //   if(request.status === 200) {
+  //     var data = JSON.parse(request.responseText)
+  //     this.state.expenses.push(data)
+  //     this.setState({
+  //       expenses: this.state.expenses
+  //     })
   //   }
-  //   const body = {
-  //     name: this.state.name,
-  //     value: this.state.price
-  //   }
+  // }
+  // const body = {
+  //   name: this.state.name,
+  //   value: this.state.price,
+  //   date: this.state.date
+  // }
 
   //   request.send(JSON.stringify(body))
   // }
@@ -9919,6 +9920,10 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
 
   handleChangeValue(event) {
     this.setState({ price: event.target.value });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
   }
 
   editForm(item) {
@@ -10087,7 +10092,7 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
           { className: 'modal-content' },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { 'class': 'modal-header' },
+            { className: 'modal-header' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'table',
               { id: 'form-table' },
@@ -10119,7 +10124,7 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { 'class': 'modal-body' },
+            { className: 'modal-body' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'table',
               { id: 'form-table' },
@@ -10142,7 +10147,7 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
                   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'p',
                     null,
-                    'Name: ',
+                    'Description: ',
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'name', value: this.state.name, onChange: this.handleChangeName.bind(this) })
                   )
                 ),
