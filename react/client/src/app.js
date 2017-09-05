@@ -18,9 +18,9 @@ window.onload = function(){
     document.getElementById('expenses-list-html-container-div')
     );
 
-    ReactDOM.render(
-    <Reports name="Reports"/>,
-    document.getElementById('reports-html-container-div')
-  );
+  //   ReactDOM.render(
+  //   <Reports name="Reports"/>,
+  //   document.getElementById('reports-html-container-div')
+  // );
 }
 

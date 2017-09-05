@@ -11,7 +11,9 @@ class ExpensesList extends React.Component {
     name: [],
     price: [],
     expense_type: [],
-    itemId: []
+    itemId: [],
+    totalCredit: 0,
+    totalDebit: 0
   };
 }
 
@@ -20,14 +22,14 @@ componentDidMount() {
 }
 
 deleteItem(id) {
-    console.log(id)
-    var url = 'http://localhost:5000/api/expenses/' + id
-    var request = new XMLHttpRequest()
-    request.open('DELETE', url)
-    request.setRequestHeader('Content-Type', "application/json")
+  console.log(id)
+  var url = 'http://localhost:5000/api/expenses/' + id
+  var request = new XMLHttpRequest()
+  request.open('DELETE', url)
+  request.setRequestHeader('Content-Type', "application/json")
 
-    request.onload = () => {
-      if(request.status === 200){
+  request.onload = () => {
+    if(request.status === 200){
        // console.log("request: ", request.responseText)
        for(var i = 0; i < this.state.expenses.length; i++) {
         let item = this.state.expenses[i]
@@ -105,76 +107,46 @@ addItem() {
       request.send(JSON.stringify(body))
     }
 
-    // var url = 'http://localhost:5000/api/expenses/' + this.state.itemId
-    // var request = new XMLHttpRequest()
-    // request.open('PATCH', url)
+    ExpensList() {
+      var url = 'http://localhost:5000/api/expenses'
+      var request = new XMLHttpRequest()
+      request.open('GET', url)
 
-    // request.setRequestHeader('Contente-Type', "application/json")
+      request.setRequestHeader('Content-Type', "application/json")
 
-    // request.onload = () => {
-    //   if(request.status === 200) {
-    //     var data = JSON.parse(request.responseText)
-    //     this.state.expenses.push(data)
-    //     this.setState({
-    //       expenses: this.state.expenses
-    //     })
-    //   }
-    // }
-    // const body = {
-    //   name: this.state.name,
-    //   value: this.state.price,
-    //   date: this.state.date
-    // }
-
-  //   request.send(JSON.stringify(body))
-  // }
-
-  ExpensList() {
-    var url = 'http://localhost:5000/api/expenses'
-    var request = new XMLHttpRequest()
-    request.open('GET', url)
-
-    request.setRequestHeader('Content-Type', "application/json")
-
-    request.onload = () => {
-     if(request.status === 200){
-      console.log("request: ", request.responseText)
-      var data = JSON.parse(request.responseText)
-      this.setState( { expenses: data } )
-    } 
+      request.onload = () => {
+       if(request.status === 200){
+        console.log("request: ", request.responseText)
+        var data = JSON.parse(request.responseText)
+        this.setState( { expenses: data } )
+        this.TotalCredit();
+        this.TotalDebit();
+      } 
+    }
+    request.send(null)
   }
-  request.send(null)
-}
 
-// hideFunction(section) {
-//   let x = document.getElementById(section);
-//   if (x.style.display == 'none') {
-//     x.style.display = 'block';
-//   } else {
-//     x.style.display = 'none';
-//   }
-// }
 
-handleChangeDate(event) {
-  this.setState({date: event.target.value})
-}
+  handleChangeDate(event) {
+    this.setState({date: event.target.value})
+  }
 
-handleChangeName(event) {
-  this.setState({name: event.target.value})
-}
+  handleChangeName(event) {
+    this.setState({name: event.target.value})
+  }
 
-handleChangeValue(event) {
-  this.setState({price: event.target.value})
-}
-handleChangeExpenseType(event) {
-  this.setState({expense_type: event.target.value})
-}
+  handleChangeValue(event) {
+    this.setState({price: event.target.value})
+  }
+  handleChangeExpenseType(event) {
+    this.setState({expense_type: event.target.value})
+  }
 
-handleSubmit(event) {
-  event.preventDefault();
-}
+  handleSubmit(event) {
+    event.preventDefault();
+  }
 
-editForm(item) {
+  editForm(item) {
   // this.hideFunction('editForm')
   this.setState({name: item.name})
   this.setState({price: item.value})
@@ -212,9 +184,9 @@ addItemModal() {
 
 editItemModal(item){
  var modal = document.getElementById('myEditItemModal');
-  var span = document.getElementsByClassName("xclose")[0];
+ var span = document.getElementsByClassName("xclose")[0];
 
-    modal.style.display = "block";
+ modal.style.display = "block";
 
   // When the user clicks on <span> (x), close the modal
   span.onclick = () => {
@@ -231,38 +203,62 @@ editItemModal(item){
 }
 
 
+TotalCredit() {
+  var sum = 0
+  var items = this.state.expenses.map((item, index) => {
+      if(item.transaction_type.name === "credit") {
+        sum += item.value
+      }
+    })
+  console.log(this.state.expenses)
+  this.setState({totalCredit: sum})
+}
+
+TotalDebit() {
+  var sum = 0
+  var items = this.state.expenses.map((item, index) => {
+      if(item.transaction_type.name === "debit") {
+        sum += item.value
+      }
+    })
+  console.log(this.state.expenses)
+  this.setState({totalDebit: sum})
+}
+
+
 render() {    
   const eachNew = this.state.expenses.map((item, index) => {
-    //console.log(item.transaction_type.name)
     if (item.transaction_type == undefined)
       { return (       
-             <tr key={index}>
-             <td>{item.date}</td>
-             <td>{item.name}</td>
-             <td></td>
-             <td>£{item.value}</td>
-             <td>
-             <a onClick={() => {this.deleteItem(item.id)}}><i className="fa fa-trash-o" aria-hidden="true"></i></a>
-             <a onClick={() => {this.editItemModal(item)}} className="myEditBtn"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-             </td> 
-             </tr>
-             )} else 
-{
-   return (       
-    <tr key={index}>
-    <td>{item.date}</td>
-    <td>{item.name}</td>
-    <td>{item.transaction_type.name}</td>
-    <td>£{item.value}</td>
-    <td>
-    <a onClick={() => {this.deleteItem(item.id)}}><i className="fa fa-trash-o" aria-hidden="true"></i></a>
-    <a onClick={() => {this.editItemModal(item)}} className="myEditBtn"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-    </td> 
-    </tr>
-    )}
- });
+       <tr key={index}>
+       <td>{item.date}</td>
+       <td>{item.name}</td>
+       <td></td>
+       <td>£{item.value}</td>
+       <td>
+       <a onClick={() => {this.deleteItem(item.id)}}><i className="fa fa-trash-o" aria-hidden="true"></i></a>
+       <a onClick={() => {this.editItemModal(item)}} className="myEditBtn"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+       </td> 
+       </tr>
+       )} else 
+    {
+
+     return (       
+      <tr key={index}>
+      <td>{item.date}</td>
+      <td>{item.name}</td>
+      <td>{item.transaction_type.name}</td>
+      <td>£{item.value}</td>
+      <td>
+      <a onClick={() => {this.deleteItem(item.id)}}><i className="fa fa-trash-o" aria-hidden="true"></i></a>
+      <a onClick={() => {this.editItemModal(item)}} className="myEditBtn"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+      </td> 
+      </tr>
+      )}
+   });
 
   return (
+
     <div className="expense-list-inner-div">
 
     <table>
@@ -326,7 +322,7 @@ render() {
     <table id="form-table">
     <form id="addForm" onSubmit={this.addItem}>
     <tr><p>Type:  <input type="radio" name="type" value="debit" checked="checked" onChange={this.handleChangeExpenseType.bind(this)}/>  Debit 
-                  <input type="radio" name="type" value="credit" onChange={this.handleChangeExpenseType.bind(this)}/>  Credit </p></tr>
+    <input type="radio" name="type" value="credit" onChange={this.handleChangeExpenseType.bind(this)}/>  Credit </p></tr>
     <tr><p>Date: <input type="date" name="date"  onChange={this.handleChangeDate.bind(this)}/></p></tr>
     <tr><p>Description: <input type="text" name="name" onChange={this.handleChangeName.bind(this)}/></p></tr>
     <tr><p>Price: <input type="integer" name="value" onChange={this.handleChangeValue.bind(this)}/></p></tr>
@@ -335,6 +331,12 @@ render() {
     </table>
     </div>
     </div>
+    </div>
+
+    <div>
+    <h1>hello</h1>
+    <h1>{this.state.totalCredit}</h1>
+    <h1>{this.state.totalDebit}</h1>
     </div>
 
     </div>

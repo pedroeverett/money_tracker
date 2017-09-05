@@ -26,7 +26,6 @@ class ExpensesController < ApplicationController
     
     transaction_types = TransactionType.all
     found_transaction_type = transaction_types.select { |transaction_type| transaction_type.name == transaction_type_name }.first
-    
     expense = Expense.new(expense_params)
     expense.transaction_type_id = found_transaction_type.id
     expense.save()

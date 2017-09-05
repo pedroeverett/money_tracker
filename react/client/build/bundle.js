@@ -6575,6 +6575,7 @@ module.exports = lowPriorityWarning;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Reports__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Reports___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Reports__);
 
 
 
@@ -6588,7 +6589,9 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
       name: [],
       price: [],
       expense_type: [],
-      itemId: []
+      itemId: [],
+      totalCredit: 0,
+      totalDebit: 0
     };
   }
 
@@ -6680,30 +6683,6 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
     request.send(JSON.stringify(body));
   }
 
-  // var url = 'http://localhost:5000/api/expenses/' + this.state.itemId
-  // var request = new XMLHttpRequest()
-  // request.open('PATCH', url)
-
-  // request.setRequestHeader('Contente-Type', "application/json")
-
-  // request.onload = () => {
-  //   if(request.status === 200) {
-  //     var data = JSON.parse(request.responseText)
-  //     this.state.expenses.push(data)
-  //     this.setState({
-  //       expenses: this.state.expenses
-  //     })
-  //   }
-  // }
-  // const body = {
-  //   name: this.state.name,
-  //   value: this.state.price,
-  //   date: this.state.date
-  // }
-
-  //   request.send(JSON.stringify(body))
-  // }
-
   ExpensList() {
     var url = 'http://localhost:5000/api/expenses';
     var request = new XMLHttpRequest();
@@ -6716,19 +6695,12 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
         console.log("request: ", request.responseText);
         var data = JSON.parse(request.responseText);
         this.setState({ expenses: data });
+        this.TotalCredit();
+        this.TotalDebit();
       }
     };
     request.send(null);
   }
-
-  // hideFunction(section) {
-  //   let x = document.getElementById(section);
-  //   if (x.style.display == 'none') {
-  //     x.style.display = 'block';
-  //   } else {
-  //     x.style.display = 'none';
-  //   }
-  // }
 
   handleChangeDate(event) {
     this.setState({ date: event.target.value });
@@ -6805,9 +6777,30 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
     this.editForm(item);
   }
 
+  TotalCredit() {
+    var sum = 0;
+    var items = this.state.expenses.map((item, index) => {
+      if (item.transaction_type.name === "credit") {
+        sum += item.value;
+      }
+    });
+    console.log(this.state.expenses);
+    this.setState({ totalCredit: sum });
+  }
+
+  TotalDebit() {
+    var sum = 0;
+    var items = this.state.expenses.map((item, index) => {
+      if (item.transaction_type.name === "debit") {
+        sum += item.value;
+      }
+    });
+    console.log(this.state.expenses);
+    this.setState({ totalDebit: sum });
+  }
+
   render() {
     const eachNew = this.state.expenses.map((item, index) => {
-      //console.log(item.transaction_type.name)
       if (item.transaction_type == undefined) {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'tr',
@@ -6849,6 +6842,7 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
           )
         );
       } else {
+
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'tr',
           { key: index },
@@ -7152,6 +7146,25 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
             )
           )
         )
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        null,
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'h1',
+          null,
+          'hello'
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'h1',
+          null,
+          this.state.totalCredit
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'h1',
+          null,
+          this.state.totalDebit
+        )
       )
     );
   }
@@ -7162,34 +7175,72 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
 
 /***/ }),
 /* 51 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ExpensesList__ = __webpack_require__(50);
+// import React from 'react';
+// import ExpensesList from './ExpensesList';
+
+// class Reports extends React.Component {
+//   constructor(props) {
+//     super(props)
+//     this.state = {
+//       expenses: [],
+//       totalCredit: [],
+//       totalDebit: []
+//     }
+//   }
+
+//   componetWillMount() {
+//    this.ExpensList();
+
+//  }
+//  componentDidMount() {
+//   this.TotalCredit()
+// }
 
 
+// ExpensList() {
+//   var url = 'http://localhost:5000/api/expenses'
+//   var request = new XMLHttpRequest()
+//   request.open('GET', url)
 
-class Reports extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      total: []
-    };
-  }
+//   request.setRequestHeader('Content-Type', "application/json")
 
-  render() {
-    console.log(__WEBPACK_IMPORTED_MODULE_1__ExpensesList__["a" /* default */]);
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      'h1',
-      null,
-      'hello'
-    );
-  }
+//   request.onload = () => {
+//    if(request.status === 200){
+//     //console.log("request: ", request.responseText)
+//     var data = JSON.parse(request.responseText)
+//     this.setState( { expenses: data } )
+//   } 
+// }
+// request.send(null)
+// }
 
-}
-/* harmony default export */ __webpack_exports__["a"] = (Reports);
+// TotalCredit() {
+//   var sum = 500
+//   var items = this.state.expenses.map((item, index) => {
+//       // if(item.transaction_type.name === "Credit") {
+//       //   sum = 20
+//       // }
+//       this.state.totalCredit.push(item.value)
+//     })
+//   console.log(this.state.expenses)
+//   this.setState({totalCredit: sum})
+// }
+
+
+// render() {
+//   console.log(this.state.totalCredit)
+//   ExpensesList
+//   return(
+
+//     <h1>hello</h1>
+
+//     );
+// }
+
+// }
+// export default Reports;
 
 /***/ }),
 /* 52 */
@@ -10444,6 +10495,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_ExpensesList__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Reports__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Reports___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_Reports__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_TopMenu__ = __webpack_require__(85);
 
 
@@ -10458,7 +10510,10 @@ window.onload = function () {
 
   __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_ExpensesList__["a" /* default */], { name: 'Expenses List' }), document.getElementById('expenses-list-html-container-div'));
 
-  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_Reports__["a" /* default */], { name: 'Reports' }), document.getElementById('reports-html-container-div'));
+  //   ReactDOM.render(
+  //   <Reports name="Reports"/>,
+  //   document.getElementById('reports-html-container-div')
+  // );
 };
 
 /***/ }),
