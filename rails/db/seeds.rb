@@ -1,8 +1,8 @@
 TransactionType.delete_all;
 Expense.delete_all;
 
-t1 = TransactionType.create({name: "debit"})
-t2 = TransactionType.create({name: "credit"})
+t1 = TransactionType.create({name: "Debit"})
+t2 = TransactionType.create({name: "Credit"})
 
 
 Expense.create({name:"bread", value:10, transaction_type: t1, date:"2017-05-20"})

@@ -6587,6 +6587,7 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
       date: [],
       name: [],
       price: [],
+      expense_type: [],
       itemId: []
     };
   }
@@ -6630,7 +6631,8 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
 
     request.onload = () => {
       if (request.status === 200) {
-        // console.log("request: ", request.responseText)
+        //console.log(body)
+        //console.log("request: ", request.responseText)
         var data = JSON.parse(request.responseText);
         console.log(data);
         this.state.expenses.push(data);
@@ -6642,7 +6644,8 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
     const body = {
       name: this.state.name,
       value: this.state.price,
-      date: this.state.date
+      date: this.state.date,
+      transaction_type: this.state.expense_type
     };
 
     request.send(JSON.stringify(body));
@@ -6670,7 +6673,8 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
     const body = {
       name: this.state.name,
       value: this.state.price,
-      date: this.state.date
+      date: this.state.date,
+      transaction_type: this.state.expense_type
     };
 
     request.send(JSON.stringify(body));
@@ -6737,6 +6741,9 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
   handleChangeValue(event) {
     this.setState({ price: event.target.value });
   }
+  handleChangeExpenseType(event) {
+    this.setState({ expense_type: event.target.value });
+  }
 
   handleSubmit(event) {
     event.preventDefault();
@@ -6748,6 +6755,7 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
     this.setState({ price: item.value });
     this.setState({ date: item.date });
     this.setState({ itemId: item.id });
+    this.setState({ expense_type: item.transaction_type });
     console.log(this.state.itemId + " edit form called");
   }
   editFormExit() {
@@ -6755,12 +6763,12 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
     this.setState({ price: "" });
     this.setState({ date: "" });
     this.setState({ itemId: "" });
+    this.setState({ expense_type: "" });
     console.log(this.state.itemId);
   }
 
   addItemModal() {
     var modal = document.getElementById('myAddItemModal');
-    // var btn = document.getElementById("myAddBtn");
     var span = document.getElementsByClassName("close")[0];
 
     modal.style.display = "block";
@@ -6779,12 +6787,10 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
 
   editItemModal(item) {
     var modal = document.getElementById('myEditItemModal');
-    // var btn = document.getElementsByClassName("myEditBtn")[0]; //this is not working. just opening the 1st when use id, and none when use class.
     var span = document.getElementsByClassName("xclose")[0];
 
-    // btn.onclick = () => {
     modal.style.display = "block";
-    // }
+
     // When the user clicks on <span> (x), close the modal
     span.onclick = () => {
       modal.style.display = "none";
@@ -7087,7 +7093,7 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
               { id: 'form-table' },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'form',
-                { id: 'addForm' },
+                { id: 'addForm', onSubmit: this.addItem },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'tr',
                   null,
@@ -7095,9 +7101,9 @@ class ExpensesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
                     'p',
                     null,
                     'Type:  ',
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'radio', name: 'type', value: 'debit', checked: true }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'radio', name: 'type', value: 'debit', checked: 'checked', onChange: this.handleChangeExpenseType.bind(this) }),
                     '  Debit',
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'radio', name: 'type', value: 'credit' }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'radio', name: 'type', value: 'credit', onChange: this.handleChangeExpenseType.bind(this) }),
                     '  Credit '
                   )
                 ),

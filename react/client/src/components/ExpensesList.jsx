@@ -10,6 +10,7 @@ class ExpensesList extends React.Component {
     date: [],
     name: [],
     price: [],
+    expense_type: [],
     itemId: []
   };
 }
@@ -55,7 +56,8 @@ addItem() {
 
   request.onload = () => {
    if(request.status === 200){
-        // console.log("request: ", request.responseText)
+        //console.log(body)
+        //console.log("request: ", request.responseText)
         var data = JSON.parse(request.responseText)
         console.log(data)
         this.state.expenses.push(data)
@@ -67,7 +69,8 @@ addItem() {
     const body = {
       name: this.state.name,
       value:this.state.price,
-      date: this.state.date
+      date: this.state.date,
+      transaction_type: this.state.expense_type
     } 
 
     request.send(JSON.stringify(body))
@@ -95,7 +98,8 @@ addItem() {
       const body = {
         name: this.state.name,
         value:this.state.price,
-        date: this.state.date
+        date: this.state.date,
+        transaction_type: this.state.expense_type
       } 
 
       request.send(JSON.stringify(body))
@@ -162,6 +166,9 @@ handleChangeName(event) {
 handleChangeValue(event) {
   this.setState({price: event.target.value})
 }
+handleChangeExpenseType(event) {
+  this.setState({expense_type: event.target.value})
+}
 
 handleSubmit(event) {
   event.preventDefault();
@@ -173,6 +180,7 @@ editForm(item) {
   this.setState({price: item.value})
   this.setState({date: item.date})
   this.setState({itemId: item.id})
+  this.setState({expense_type: item.transaction_type})
   console.log(this.state.itemId + " edit form called")
 }
 editFormExit() {
@@ -180,12 +188,12 @@ editFormExit() {
   this.setState({price: ""})
   this.setState({date: ""})
   this.setState({itemId: ""})
+  this.setState({expense_type: ""})
   console.log(this.state.itemId)
 }
 
 addItemModal() {
   var modal = document.getElementById('myAddItemModal');
-  // var btn = document.getElementById("myAddBtn");
   var span = document.getElementsByClassName("close")[0];
 
   modal.style.display = "block";
@@ -204,12 +212,10 @@ addItemModal() {
 
 editItemModal(item){
  var modal = document.getElementById('myEditItemModal');
-  // var btn = document.getElementsByClassName("myEditBtn")[0]; //this is not working. just opening the 1st when use id, and none when use class.
   var span = document.getElementsByClassName("xclose")[0];
 
-  // btn.onclick = () => {
     modal.style.display = "block";
-  // }
+
   // When the user clicks on <span> (x), close the modal
   span.onclick = () => {
     modal.style.display = "none";
@@ -318,9 +324,9 @@ render() {
     </div>
     <div className="modal-body">
     <table id="form-table">
-    <form id="addForm">
-    <tr><p>Type:  <input type="radio" name="type" value="debit" checked />  Debit 
-                  <input type="radio" name="type" value="credit" />  Credit </p></tr>
+    <form id="addForm" onSubmit={this.addItem}>
+    <tr><p>Type:  <input type="radio" name="type" value="debit" checked="checked" onChange={this.handleChangeExpenseType.bind(this)}/>  Debit 
+                  <input type="radio" name="type" value="credit" onChange={this.handleChangeExpenseType.bind(this)}/>  Credit </p></tr>
     <tr><p>Date: <input type="date" name="date"  onChange={this.handleChangeDate.bind(this)}/></p></tr>
     <tr><p>Description: <input type="text" name="name" onChange={this.handleChangeName.bind(this)}/></p></tr>
     <tr><p>Price: <input type="integer" name="value" onChange={this.handleChangeValue.bind(this)}/></p></tr>
