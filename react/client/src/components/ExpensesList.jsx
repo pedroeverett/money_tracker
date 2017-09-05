@@ -19,7 +19,7 @@ componentDidMount() {
 }
 
 deleteItem(id) {
-    // console.log(id)
+    console.log(id)
     var url = 'http://localhost:5000/api/expenses/' + id
     var request = new XMLHttpRequest()
     request.open('DELETE', url)
@@ -141,18 +141,15 @@ addItem() {
   }
   request.send(null)
 }
-//editForm() //just creates a form and gets the values of the item that is passed when created.
-//this form will have a submit button that when clicked class the editItem()
-//the editItem() body will get the elements from the form, and will be almost like the addItem() onerror
 
-hideFunction(section) {
-  let x = document.getElementById(section);
-  if (x.style.display == 'none') {
-    x.style.display = 'block';
-  } else {
-    x.style.display = 'none';
-  }
-}
+// hideFunction(section) {
+//   let x = document.getElementById(section);
+//   if (x.style.display == 'none') {
+//     x.style.display = 'block';
+//   } else {
+//     x.style.display = 'none';
+//   }
+// }
 
 handleChangeDate(event) {
   this.setState({date: event.target.value})
@@ -167,25 +164,32 @@ handleChangeValue(event) {
 }
 
 handleSubmit(event) {
-    event.preventDefault();
-  }
+  event.preventDefault();
+}
 
 editForm(item) {
-  this.hideFunction('editForm')
+  // this.hideFunction('editForm')
   this.setState({name: item.name})
   this.setState({price: item.value})
   this.setState({date: item.date})
   this.setState({itemId: item.id})
+  console.log(this.state.itemId + " edit form called")
+}
+editFormExit() {
+  this.setState({name: ""})
+  this.setState({price: ""})
+  this.setState({date: ""})
+  this.setState({itemId: ""})
   console.log(this.state.itemId)
 }
 
 addItemModal() {
-  var modal = document.getElementById('myModal');
-  var btn = document.getElementById("myAddBtn");
+  var modal = document.getElementById('myAddItemModal');
+  // var btn = document.getElementById("myAddBtn");
   var span = document.getElementsByClassName("close")[0];
-  btn.onclick = () => {
-    modal.style.display = "block";
-  }
+
+  modal.style.display = "block";
+
   // When the user clicks on <span> (x), close the modal
   span.onclick = () => {
     modal.style.display = "none";
@@ -198,79 +202,138 @@ addItemModal() {
   }
 }
 
+editItemModal(item){
+ var modal = document.getElementById('myEditItemModal');
+  // var btn = document.getElementsByClassName("myEditBtn")[0]; //this is not working. just opening the 1st when use id, and none when use class.
+  var span = document.getElementsByClassName("xclose")[0];
 
-render() {
-    const eachNew = this.state.expenses.map((item, index) => {
-     return (       
-      <tr key={index}>
-      <td>{item.date}</td>
-      <td>{item.name}</td>
-      <td>£{item.value}</td>
-      <td>
-      <a onClick={() => {this.deleteItem(item.id)}}><i className="fa fa-trash-o" aria-hidden="true"></i></a>
-      <a onClick={() => {this.editForm(item)}}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-      </td> 
-      </tr>
-      )
-   });
-
-    return (
-      <div className="expense-list-inner-div">
-      
-      <table>
-      <tr className="table-row-header">
-      <td>TRANSACTIONS</td>
-      <td></td>
-      <td></td>
-      <td><a onClick={() => {this.addItemModal()}} id="myAddBtn"><i className="fa fa-plus-square" aria-hidden="true"> Add Transaction</i></a></td>
-      </tr>
-      <tr>
-      <th>Date</th>
-      <th>Description</th>
-      <th>Price</th>
-      <th></th>
-      </tr>
-      { eachNew }
-      <tr>
-      <form id="editForm" onSubmit={this.editItem}>
-      <td><input type="text" name="date" value={this.state.date} onChange={this.handleChangeDate.bind(this)}/></td>
-      <td><input type="text" name="name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/></td>
-      <td><input type="integer" name="value" value={this.state.price} onChange={this.handleChangeValue.bind(this)}/></td>
-      <td><button onClick={() => {this.editItem()}}>Submit</button></td>
-      </form>
-      </tr>
-      </table>
-
-      <div id="myModal" className="modal">
-      <div className="modal-content">
-      <div className="modal-header">
-      <table id="form-table">
-      <tr>
-      <th></th>
-      <th><h3>Add New Transaction</h3></th>
-      <th><span className="close">&times;</span></th>
-      <th></th>
-      </tr>
-      </table>
-      </div>
-      <div className="modal-body">
-      <table id="form-table">
-      <form id="addForm" >
-      <tr><p>Date: <input type="text" name="date" value={this.state.date} onChange={this.handleChangeDate.bind(this)}/></p></tr>
-      <tr><p>Description: <input type="text" name="name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/></p></tr>
-      <tr><p>Price: <input type="integer" name="value" value={this.state.price} onChange={this.handleChangeValue.bind(this)}/></p></tr>
-      <p><button onClick={() => {this.addItem()}} className="submit-button">Submit</button></p>
-      </form>
-      </table>
-      </div>
-
-
-      </div>
-      </div>
-
-      </div>
-      )
+  // btn.onclick = () => {
+    modal.style.display = "block";
+  // }
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = () => {
+    modal.style.display = "none";
+    this.editFormExit();
   }
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = (event) => {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+  this.editForm(item);
+}
+
+
+render() {    
+  const eachNew = this.state.expenses.map((item, index) => {
+    //console.log(item.transaction_type.name)
+    if (item.transaction_type == undefined)
+      { return (       
+             <tr key={index}>
+             <td>{item.date}</td>
+             <td>{item.name}</td>
+             <td></td>
+             <td>£{item.value}</td>
+             <td>
+             <a onClick={() => {this.deleteItem(item.id)}}><i className="fa fa-trash-o" aria-hidden="true"></i></a>
+             <a onClick={() => {this.editItemModal(item)}} className="myEditBtn"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+             </td> 
+             </tr>
+             )} else 
+{
+   return (       
+    <tr key={index}>
+    <td>{item.date}</td>
+    <td>{item.name}</td>
+    <td>{item.transaction_type.name}</td>
+    <td>£{item.value}</td>
+    <td>
+    <a onClick={() => {this.deleteItem(item.id)}}><i className="fa fa-trash-o" aria-hidden="true"></i></a>
+    <a onClick={() => {this.editItemModal(item)}} className="myEditBtn"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+    </td> 
+    </tr>
+    )}
+ });
+
+  return (
+    <div className="expense-list-inner-div">
+
+    <table>
+    <tr className="table-row-header">
+    <td>TRANSACTIONS</td>
+    <td></td>
+    <td></td>
+    <td><a onClick={() => {this.addItemModal()}} id="myAddBtn"><i className="fa fa-plus-square" aria-hidden="true"> Add Transaction</i></a></td>
+    </tr>
+    <tr>
+    <th>Date</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Price</th>
+    <th></th>
+    </tr>
+    { eachNew }
+    </table>
+
+
+    <div id="myEditItemModal" className="editmodal">
+    <div className="editmodal-content">
+    <div className="editmodal-header">
+    <table id="form-table">
+    <tr>
+    <th></th>
+    <th><h3>Edit Transaction</h3></th>
+    <th><span className="xclose">&times;</span></th>
+    <th></th>
+    </tr>
+    </table>
+    </div>
+    <div className="editmodal-body">
+    <table id="form-table">
+    <form id="editForm" onSubmit={this.editItem}>
+    <tr><p>Date: <input type="date" name="date" value={this.state.date} onChange={this.handleChangeDate.bind(this)}/></p></tr>
+    <tr><p>Description: <input type="text" name="name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/></p></tr>
+    <tr><p>Price: <input type="integer" name="value" value={this.state.price} onChange={this.handleChangeValue.bind(this)}/></p></tr>
+    <p><button onClick={() => {this.editItem()}} className="submit-button">Submit</button></p>
+    </form>
+    </table>
+    </div>
+    </div>
+    </div>
+
+
+
+    <div id="myAddItemModal" className="modal">
+    <div className="modal-content">
+    <div className="modal-header">
+    <table id="form-table">
+    <tr>
+    <th></th>
+    <th><h3>Add New Transaction</h3></th>
+    <th><span className="close">&times;</span></th>
+    <th></th>
+    </tr>
+    </table>
+    </div>
+    <div className="modal-body">
+    <table id="form-table">
+    <form id="addForm">
+    <tr><p>Type:  <input type="radio" name="type" value="debit" checked />  Debit 
+                  <input type="radio" name="type" value="credit" />  Credit </p></tr>
+    <tr><p>Date: <input type="date" name="date"  onChange={this.handleChangeDate.bind(this)}/></p></tr>
+    <tr><p>Description: <input type="text" name="name" onChange={this.handleChangeName.bind(this)}/></p></tr>
+    <tr><p>Price: <input type="integer" name="value" onChange={this.handleChangeValue.bind(this)}/></p></tr>
+    <p><button onClick={() => {this.addItem()}} className="submit-button">Submit</button></p>
+    </form>
+    </table>
+    </div>
+    </div>
+    </div>
+
+    </div>
+    )
+}
 }
 // onSubmit={this.handleChange}
 // onChange={this.handleChange.bind(this)}

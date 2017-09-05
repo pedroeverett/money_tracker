@@ -11,14 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170902140232) do
+ActiveRecord::Schema.define(version: 20170904103609) do
 
   create_table "expenses", force: :cascade do |t|
     t.string   "name"
     t.integer  "value"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.text     "date"
+    t.integer  "transaction_type_id"
+  end
+
+  add_index "expenses", ["transaction_type_id"], name: "index_expenses_on_transaction_type_id"
+
+  create_table "transaction_types", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text     "date"
   end
 
 end

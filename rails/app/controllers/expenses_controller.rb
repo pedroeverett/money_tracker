@@ -4,13 +4,24 @@ class ExpensesController < ApplicationController
     params.require(:expense).permit([:name, :value, :date])
   end
 
+  # def index
+  #   expenses = Expense.all.order(:date)
+  #   render :json => expenses.to_json().
+  # end
+
   def index
     expenses = Expense.all
-    render :json => expenses.to_json()
+    # render :json => gigs.as_json({include: :venue}) #gives all data from venue
+    # render :json => expenses.as_json({include: {transaction_type: {only: :name}}}) #just gives the name of the venue
+    render :json => expenses.as_json(include: {transaction_type: {only: :name}}, only: [:id, :name, :value, :date]) #just gives the name of the venue
   end
 
   def create
-    expense = Expense.create(expense_params)
+    # transaction_type_name = params[:transaction_type]
+    # transaction = TransactionType.find()
+    expense = Expense.new(expense_params)
+    expense.transaction_type_id = transaction.id
+    expense.save()
     render :json => expense
   end
 
