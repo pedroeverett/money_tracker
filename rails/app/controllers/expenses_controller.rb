@@ -1,7 +1,7 @@
 class ExpensesController < ApplicationController
 
   def expense_params
-    params.require(:expense).permit([:name, :value, :date])
+    params.require(:expense).permit([:name, :value, :date, :transaction_type_id])
   end
 
   # def index

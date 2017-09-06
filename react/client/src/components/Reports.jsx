@@ -1,65 +1,34 @@
-// import React from 'react';
-// import ExpensesList from './ExpensesList';
+import React from 'react';
+import Highcharts from 'highcharts';
 
-// class Reports extends React.Component {
-//   constructor(props) {
-//     super(props)
-//     this.state = {
-//       expenses: [],
-//       totalCredit: [],
-//       totalDebit: []
-//     }
-//   }
+class Reports extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
 
-//   componetWillMount() {
-//    this.ExpensList();
-   
-//  }
-//  componentDidMount() {
-//   this.TotalCredit()
-// }
+  // this.state = {pieData: [{name: "Firefox",y: 6},{name: "MSIE",y: 4},{name: "Safari",y: 4},{name: "Opera",y: 1},{name: "Chrome",y: 7}]}
 
+  //     }
+    
 
-// ExpensList() {
-//   var url = 'http://localhost:5000/api/expenses'
-//   var request = new XMLHttpRequest()
-//   request.open('GET', url)
+    
 
-//   request.setRequestHeader('Content-Type', "application/json")
+render() {
+  //console.log(this.state.totalCredit)
+  return(
+    <div>
+    <div ref='chart'>
+    </div>
+    <div>
+    <h1>hello</h1>
+    <h1>Total Credit Expenses: £{this.props.tc}</h1>
+    <h1>Total Debit Expenses: £{this.props.td}</h1>
+    </div>
+    </div>
+    );
+}
 
-//   request.onload = () => {
-//    if(request.status === 200){
-//     //console.log("request: ", request.responseText)
-//     var data = JSON.parse(request.responseText)
-//     this.setState( { expenses: data } )
-//   } 
-// }
-// request.send(null)
-// }
-
-// TotalCredit() {
-//   var sum = 500
-//   var items = this.state.expenses.map((item, index) => {
-//       // if(item.transaction_type.name === "Credit") {
-//       //   sum = 20
-//       // }
-//       this.state.totalCredit.push(item.value)
-//     })
-//   console.log(this.state.expenses)
-//   this.setState({totalCredit: sum})
-// }
-
-
-// render() {
-//   console.log(this.state.totalCredit)
-//   ExpensesList
-//   return(
-
-//     <h1>hello</h1>
-
-//     );
-// }
-
-// }
-// export default Reports;
+}
+export default Reports;
 

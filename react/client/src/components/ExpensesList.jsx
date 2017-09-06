@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Repors from './Reports'
+import Reports from './Reports'
 
 class ExpensesList extends React.Component {
  constructor(props) {
@@ -260,7 +260,6 @@ render() {
   return (
 
     <div className="expense-list-inner-div">
-
     <table>
     <tr className="table-row-header">
     <td>TRANSACTIONS</td>
@@ -333,13 +332,14 @@ render() {
     </div>
     </div>
 
-    <div>
-    <h1>hello</h1>
-    <h1>{this.state.totalCredit}</h1>
-    <h1>{this.state.totalDebit}</h1>
+
+  
+    <div id="expenses-div">
+   
+    <Reports tc={this.state.totalCredit} td={this.state.totalDebit}/>
+    </div>
     </div>
 
-    </div>
     )
 }
 }
