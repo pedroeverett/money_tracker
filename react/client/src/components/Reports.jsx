@@ -1,22 +1,16 @@
 import React from 'react';
-import Highcharts from 'highcharts';
+//import Highcharts from 'highcharts';
 
 class Reports extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
   }
-
-  // this.state = {pieData: [{name: "Firefox",y: 6},{name: "MSIE",y: 4},{name: "Safari",y: 4},{name: "Opera",y: 1},{name: "Chrome",y: 7}]}
-
-  //     }
-    
-
     
 
 render() {
   //console.log(this.state.totalCredit)
-  return(
+  return (
     <div>
     <div ref='chart'>
     </div>

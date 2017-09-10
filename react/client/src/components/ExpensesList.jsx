@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Reports from './Reports'
+import Reports from './Reports';
+import ExpensesItem from './ExpensesItem';
 
 class ExpensesList extends React.Component {
  constructor(props) {
@@ -265,6 +266,7 @@ render() {
     <td>TRANSACTIONS</td>
     <td></td>
     <td></td>
+    <td></td>
     <td><a onClick={() => {this.addItemModal()}} id="myAddBtn"><i className="fa fa-plus-square" aria-hidden="true"> Add Transaction</i></a></td>
     </tr>
     <tr>
@@ -274,7 +276,8 @@ render() {
     <th>Price</th>
     <th></th>
     </tr>
-    { eachNew }
+    { eachNew } 
+    <ExpensesItem allItems={this.state.expenses}/>
     </table>
 
 
